@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html class="{{ site.abbrev }}" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ page.description }}" />
+  <link rel="shortcut icon" href="images/icon.ico" />
+  <link rel="stylesheet" href="style.css" />
+  <title>{{ page.title }}</title>
+</head>
+
+<body class="Pg__">
+  {% include header.html %}
+  <main class="{{ page.name | capitalize }}__">
+        {{ content }}
+  </main>
+  <script src="script.js"></script>
+</body>
+
+</html>

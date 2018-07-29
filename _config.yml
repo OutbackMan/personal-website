@@ -1,0 +1,22 @@
+abbrev: rem
+primary_color: \#444
+env: dev
+
+env_config:
+  dev:
+    url: http://localhost:4000
+  prod:
+    url: https://github.io/OutbackMan/something
+    
+url: site.env_config[site.env].url
+
+timezone: Australia/Sydney
+
+profile: true
+strict_front_matter: true
+
+liquid:
+  error_mode: strict
+  strict_filters: true
+  strict_variables: true
+
