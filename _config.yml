@@ -1,5 +1,6 @@
 abbrev: rem
-primary_color: \#444
+primary_color: \#444444
+lightened_primary_color: \#525252
 env: dev
 
 env_config:
