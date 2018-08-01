@@ -1,37 +1,38 @@
 ---
 ---
-
-/*
- *function computation(n) {
-	let start = Date.now();
-  let duration = Math.random() * 300 + 100;
-  while(Date.now() - start < duration);
-  return n * n;
+function anim_preloader(start_time, preloader, preloader_anim_frames) {
+  preloader_anim_frames[anim_preloader.cur_frame].style.display = "table-cell"; 
 }
-let inputs = Array.from({length: 50}, (_, x) => x);
-let index = 0;
-let progress = document.querySelector('progress');
-let results = [];
-function next() {
-	let n = inputs[index++];
-  results.push(computation(n));
-  progress.value = index / inputs.length;
-  if (index < inputs.length) {
-  	setTimeout(next, 0);
+
+function preload_page(num_resources_to_load) {
+  window.requestAnimationFrame((start_time) => {
+    anim_preloader(start_time, preloader, preloader_anim_frames);
+  });
+
+  const NUM_RESOURCES_LOADED = window.performance.getEntriesByType("resource").length;
+  const RESOURCES_LOADED_STATUS_STR = `${(NUM_RESOURCES_LOADED / num_resources_to_load) * 100}%`;
+  
+  preloader.width = RESOURCES_LOADED_STATUS_STR;
+  preloader.dataset.status = RESOURCES_LOADED_STATUS_STR;
+  
+  if (NUM_RESOURCES_LOADED != num_resources_to_load) {
+  	setTimeout(preload_page, 0, num_resources_to_load);
   } else {
-  	document.querySelector('div').innerHTML = results.join(', ');
+        preloader.style["animation-play-state"] = "start"; 
+        page.style["animation-play-state"] = "start"; 
+  	return;
   }
-}
-setTimeout(next, 0); 
- */
-
-
-function wait_till_resources_loaded() {
-  const NUM_RESOURCES_TO_LOAD = 5;
 }
 
 function {{ site.abbrev }}(e) {
-  console.log("DOM Content Loaded");
+  const ELEMS = Object.freeze({
+    "PRELOADER": document.querySelector(".Preloader__"),
+    "PRELOADER_ANIM_FRAMES": document.querySelectorAll("[class*=Preloader__AnimationFrame]"),
+    "PAGE": document.querySelector(".Page__")
+  });
+
+  preload_page({{ page.num_resources | plus: 4 }}, ELEMS.PRELOADER, ELEMS.PRELOADER_ANIM_FRAMES, ELEMS.PAGE);
+
 } 
 
 document.addEventListener("DOMContentLoaded", {{ site.abbrev }});

@@ -7,14 +7,20 @@
   <meta name="description" content="{{ page.description }}" />
   <link rel="shortcut icon" href="images/icon.ico" />
   <link rel="stylesheet" href="style.css" />
+  {% include preloader.css %}
   <title>{{ page.title }}</title>
 </head>
 
-<body class="Pg__">
-  {% include header.html %}
-  <main class="{{ page.name | capitalize }}__">
+<body class="Display__">
+  {% include preloader.html %}
+  <section class="Page__"> 
+    {% include header.html %}
+    <main class="{{ page.name | capitalize }}__">
         {{ content }}
-  </main>
+    </main>
+  </section>
+  {% assign resources_to_load = page.num_resources | plus: 4 %}
+  {% include preloader.js num_resources_to_load=resources_to_load %}
   <script src="script.js"></script>
 </body>
 
