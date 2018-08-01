@@ -19,6 +19,24 @@
   line-height: 1.5;
 }
 
+
+.Preloader__ProgressBar {
+  width: 15em;
+  height: 2em;
+  border: 0.2em solid {{ site.secondary-color }};
+  position: relative;
+}
+
+.Preloader__ProgressBar::after {
+  content: attr(data-status);
+  color: white;
+  position: absolute;
+  top: 0.2em; right: 0.2em; left: 0.2em; bottom: 0.2em;
+  border: 0.2em solid black;
+  background-color: {{ site.secondary-color }};
+  width: 0%;
+}
+
 @keyframes AnimatePreloadedPageIn {
   from {
     display: none; 

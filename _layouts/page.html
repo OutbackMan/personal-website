@@ -7,7 +7,6 @@
   <meta name="description" content="{{ page.description }}" />
   <link rel="shortcut icon" href="images/icon.ico" />
   <link rel="stylesheet" href="style.css" />
-  {% include preloader.css %}
   <title>{{ page.title }}</title>
 </head>
 
@@ -19,9 +18,12 @@
         {{ content }}
     </main>
   </section>
-  {% assign resources_to_load = page.num_resources | plus: 4 %}
-  {% include preloader.js num_resources_to_load=resources_to_load %}
   <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", (e) => {
+      preload_page({{ page.num_resources | plus: 4 }});
+    });
+  </script>
 </body>
 
 </html>
