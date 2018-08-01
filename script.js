@@ -56,8 +56,6 @@ function preload_page(num_resources_to_load) {
   } else {
     preloader_info.is_active = false;
     preloader_info.dom_elem.style["animation-play-state"] = "start"; 
-
-    document.querySelector(".Page__").style["animation-play-state"] = "start"; 
   }
 }
 

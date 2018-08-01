@@ -14,14 +14,18 @@
   {% include preloader.html %}
   <section class="Page__"> 
     {% include header.html %}
-    <main class="{{ page.name | capitalize }}__">
+    <main class="{{ page.identifier | capitalize }}__">
         {{ content }}
     </main>
   </section>
   <script src="script.js"></script>
   <script>
+{% assign num_layout_resources = 4 %}
+{% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
     document.addEventListener("DOMContentLoaded", (e) => {
-      preload_page({{ page.num_resources | plus: 4 }});
+      if (window.performance.getEntriesByType("resource").length !== {{ num_resources_to_load }}) {
+        preload_page({{ num_resources_to_load }});
+      } 
     });
   </script>
 </body>
