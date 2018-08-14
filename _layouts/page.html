@@ -22,11 +22,17 @@
   <script>
 {% assign num_layout_resources = 4 %}
 {% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
-    document.addEventListener("DOMContentLoaded", (e) => {
+    function preload(evt) {
       if (window.performance.getEntriesByType("resource").length !== {{ num_resources_to_load }}) {
         preload_page({{ num_resources_to_load }});
       } 
-    });
+	}
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", preload);
+    } else {
+	  preload();
+    }
   </script>
 </body>
 

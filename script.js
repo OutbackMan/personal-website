@@ -32,7 +32,7 @@ function anim_preloader(cur_time) {
        preloader_info.active_frame_num = NEXT_FRAME_INDEX; 
     }
 
-    window.requestAnimationFrame(anim_preloader);
+    window.requestAnimationFrame(anim_preloader));
 
   } else {
     return; 
@@ -59,3 +59,37 @@ function preload_page(num_resources_to_load) {
   }
 }
 
+
+// use border-right for cursor
+function auto_type(auto_type_dom_elem) {
+  const PHRASES_TO_TYPE = JSON.parse(auto_type_dom_elem.dataset.phrases);
+
+  
+  let displayed_phrase = "";
+  let counter = 0;
+  PHRASES_TO_TYPE.forEach((phrase) => {
+    let want_to_delete_displayed_phrase = false;
+    while (!want_to_delete_displayed_phrase && displayed_phrase.length !== 0) {
+      if (want_to_delete_displayed_phrase) {
+        displayed_phrase.substring(0, displayed_phrase.length - 1);
+      } else {
+        displayed_phrase += phrase[counter++];
+        AUTO_TYPING_ELEM.innerHTML = displayed_phrase;
+      }
+      
+      if (!want_to_delete_displayed_phrase && displayed_phrase.length === phrase.length) {
+        want_to_delete_displayed_phrase = true;
+      }
+    }
+    counter = 0;
+  });
+  window.requestAnimationFrame((start_time) => {
+	  
+  });
+}
+
+function auto_type_ch() {
+  window.requestAnimationFrame((start_time) => {
+	  
+  });
+}
