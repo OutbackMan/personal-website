@@ -59,6 +59,10 @@ function preload_page(num_resources_to_load, on_page_load_functions) {
   }
 }
 
+function handle_menu() {
+  let want_to_show_menu = false;	
+}
+
 function auto_type() {}
 
 /*
