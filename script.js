@@ -34,20 +34,29 @@ function preload_page(num_resources_to_load, on_page_load_functions) {
     const NUM_RESOURCES_LOADED = window.performance.getEntriesByType("resource").length;
     const RESOURCES_LOADED_STATUS_STR = `${(NUM_RESOURCES_LOADED / num_resources_to_load) * 100}%`;
     
+	// check against previous value to avoid re-inserting
     document.querySelector("style").sheet.insertRule(`${preloader.progress_bar_class_str} {width: ${RESOURCES_LOADED_STATUS_STR};}`)
     preloader.progress_bar_dom_elem.dataset.status = RESOURCES_LOADED_STATUS_STR;
     
-	if (NUM_RESOURCES_LOADED != preloader.num_resources_to_load) {
+	if (NUM_RESOURCES_LOADED != num_resources_to_load) {
       window.requestAnimationFrame(preloader.animate);
 	} else {
-      preloader.dom_elem.style["animation-play-state"] = "start"; 
+      // preloader.dom_elem.style.animationPlayState = "running"; some reason not working
+      preloader.dom_elem.style.display = "none";
 	  on_page_load_functions.forEach((page_function) => {
 	    page_function();  
 	  });
 	}
   }
 
-  window.requestAnimationFrame(preloader.animate);
+  if (window.performance.getEntriesByType("resource").length !== num_resources_to_load) {
+    window.requestAnimationFrame(preloader.animate);
+  } else {
+    preloader.dom_elem.style.display = "none";
+	on_page_load_functions.forEach((page_function) => {
+      page_function();  
+	});
+  }
 }
 
 function auto_type() {}

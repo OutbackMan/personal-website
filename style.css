@@ -9,9 +9,6 @@
     Tahoma, Sans-Serif;
   color: #272727;
   text-shadow: 0 0.2em 0 rgba(0, 0, 0, 0.07);
-
-  --visible-z-index: 500;
-  --not-visible-z-index: 499;
 }
 
 .Display__ {
@@ -31,18 +28,22 @@
 }
 
 .Preloader__ {
-  z-index: var(--visible-z-index);
+  margin: 0; /* rather annoyingly doesn't inherit */
+  padding: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
   width: 100vw;
-  height: 100vh;  
+  overflow-x: hidden;
+  overflow-y: hidden;
   background-color: {{ site.primary_color }};
 
   animation-name: AnimateOutOfDisplay;
   animation-duration: 0.5s;
-  animation-iteration-count: 1;
+  animation-iteration-count: 2;
   animation-timing-function: ease-in-out;
   animation-play-state: paused;
 }
@@ -55,7 +56,7 @@
 }
 
 .Preloader__AnimationFrame__:nth-child(1) {
-  display: table-cell;
+  display: table-cell; /* preserve 'flex-item' styling */
 }
 
 .Preloader__AnimationFrame__Vector {
@@ -64,7 +65,7 @@
 
 .Preloader__ProgressBar {
   text-align: center;
-  width: 15em;
+  width: 25em;
   height: 2em;
   border: 0.2em solid {{ site.secondary_color }};
   position: relative;
@@ -75,14 +76,19 @@
   color: white;
   position: absolute;
   top: 0.2em; right: 0.2em; left: 0.2em; bottom: 0.2em;
-  border: 0.2em solid black;
+  border: 0.2em solid {{ site.secondary_color }} ;
   background-color: {{ site.secondary_color }};
   width: 0%;
 }
 
 .Page__ {
-  z-index: var(--not-visible-z-index);
-  width: 100vw;
-  height: 100vh;
+  z-index: -1;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.Home__ {
+  margin: 0;
+  padding: 0;
 }
 

@@ -25,18 +25,13 @@
 {% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
     function execute_page_functions() {
       let page_functions = []; 
+
 	  {% for page_function in page.functions %}
         page_functions.push({{ page_function.name }});
 	  {% endfor %}
 
-      if (window.performance.getEntriesByType("resource").length !== {{ num_resources_to_load }}) {
         preload_page({{ num_resources_to_load }}, page_functions);
-      } else {
-		page_functions.forEach((page_function) => {
-	      page_function();
-	    });
 	  }
-    } 
 
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", execute_page_functions);
