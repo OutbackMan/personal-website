@@ -7,6 +7,7 @@
   <meta name="description" content="{{ page.description }}" />
   <link rel="shortcut icon" href="{{ site.url }}/images/icon.ico" />
   <link rel="stylesheet" href="{{ site.url }}/style.css" />
+  <style></style>
   <title>{{ page.title }}</title>
 </head>
 
@@ -23,12 +24,17 @@
 {% assign num_layout_resources = 4 %}
 {% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
     function execute_page_functions() {
-      if (window.performance.getEntriesByType("resource").length !== {{ num_resources_to_load }}) {
-        preload_page({{ num_resources_to_load }}, page_functions_list);
-      } else {
+      let page_functions = []; 
 	  {% for page_function in page.functions %}
-        {{ page_function.name }}();
+        page_functions.push({{ page_function.name }});
 	  {% endfor %}
+
+      if (window.performance.getEntriesByType("resource").length !== {{ num_resources_to_load }}) {
+        preload_page({{ num_resources_to_load }}, page_functions);
+      } else {
+		page_functions.forEach((page_function) => {
+	      page_function();
+	    });
 	  }
     } 
 
