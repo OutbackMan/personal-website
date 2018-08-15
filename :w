@@ -1,8 +1,6 @@
 ---
 ---
 
-/* put colours here as --primary: rgba() */
-
 :root {
   box-sizing: border-box;
   font-size: calc(0.5rem + 1vw);
