@@ -22,16 +22,20 @@
   <script>
 {% assign num_layout_resources = 4 %}
 {% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
-    function preload(evt) {
+    function execute_page_functions() {
       if (window.performance.getEntriesByType("resource").length !== {{ num_resources_to_load }}) {
-        preload_page({{ num_resources_to_load }});
-      } 
-	}
+        preload_page({{ num_resources_to_load }}, page_functions_list);
+      } else {
+	  {% for page_function in page.functions %}
+        {{ page_function.name }}();
+	  {% endfor %}
+	  }
+    } 
 
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", preload);
+      document.addEventListener("DOMContentLoaded", execute_page_functions);
     } else {
-	  preload();
+	  execute_page_functions();
     }
   </script>
 </body>
