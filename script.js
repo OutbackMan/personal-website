@@ -1,7 +1,7 @@
 ---
 ---
 
-function preload_page(num_resources_to_load) {
+async function preload_page(num_resources_to_load) {
   let preloader = Object.create(null);
   preloader.dom_elem = document.querySelector(".Preloader__");
   preloader.progress_bar_dom_elem = document.querySelector(".Preloader__ProgressBar");
@@ -13,6 +13,7 @@ function preload_page(num_resources_to_load) {
   preloader.prev_anim_frame_end_time = window.performance.now();
   preloader.time_between_anim_frames = 0;
   preloader.visible_anim_frame_num = 0;
+  preloader.page_dom_elem = document.querySelector(".Page__");
 
   preloader.animate = function(cur_anim_frame_start_time) {
     preloader.time_between_anim_frames = cur_anim_frame_start_time - 
@@ -41,17 +42,24 @@ function preload_page(num_resources_to_load) {
 	if (NUM_RESOURCES_LOADED != num_resources_to_load) {
       window.requestAnimationFrame(preloader.animate);
 	} else {
-      preloader.dom_elem.style.opacity = 0;
-	  document.querySelector(".Page__").style = "z-index: 10; transform: scale(1, 1);"; // this has same time as preloader opacity transition
+	  preloader.dom_elem.style = "z-index: -1; opacity: 0;"; // this has same time as preloader opacity transition
+      preloader.page_dom_elem.style.transform = "scale(1, 1)";
 	}
   }
 
+  // ensure we don't show preloader on cached pages
   if (window.performance.getEntriesByType("resource").length !== num_resources_to_load) {
+	// display preloader
+    preloader.dom_elem.style.zIndex = 1;
+    preloader.dom_elem.style.opacity = 1;
+
+    // can't animate 
+    // hide page
+    preloader.page_dom_elem.style.transform = "scale(0, 0)"; /* prevent overflow, but still retrieve resources */
+    preloader.page_dom_elem.style.transformOrigin = "center";
+    preloader.page_dom_elem.style.zIndex = -1; /* ensure below preloader */
     window.requestAnimationFrame(preloader.animate);
-  } else {
-    preloader.dom_elem.style.opacity = 0;
-	document.querySelector(".Page__").style = "z-index: 10; transform: scale(1, 1);"; // this has same time as preloader opacity transition
-  }
+  } 
 }
 
 function auto_type() {}
