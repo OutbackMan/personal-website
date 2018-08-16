@@ -32,10 +32,11 @@ function preload_page(num_resources_to_load) {
     }
 
     const NUM_RESOURCES_LOADED = window.performance.getEntriesByType("resource").length;
-    const RESOURCES_LOADED_STATUS_STR = `${(NUM_RESOURCES_LOADED / num_resources_to_load) * 100}%`;
+	const SCALE_AMOUNT = NUM_RESOURCES_LOADED / num_resources_to_load; 
+    const RESOURCES_LOADED_STATUS_STR = `${parseInt(SCALE_AMOUNT * 100, 10)}%`;
     
 	// check against previous value to avoid re-inserting
-    preloader.progress_bar_bar_dom_elem.style.width = `${RESOURCES_LOADED_STATUS_STR}`;
+    preloader.progress_bar_bar_dom_elem.style.transform = `scale(${SCALE_AMOUNT}, 1)`;
     preloader.progress_bar_bar_dom_elem.innerHTML = RESOURCES_LOADED_STATUS_STR;
     
 	if (NUM_RESOURCES_LOADED != num_resources_to_load) {

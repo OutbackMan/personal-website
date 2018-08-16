@@ -30,7 +30,7 @@
   width: 100vw;
   overflow-x: hidden;
   overflow-y: hidden;
-  transition: opacity 1250ms ease-in-out 500ms;
+  transition: opacity 1250ms ease-in-out 1000ms;
   background-color: {{ site.primary_color }};
 }
 
@@ -57,14 +57,14 @@
   position: relative;
 }
 
-/* could animate scaleX */
 .Preloader__ProgressBar__Bar {
   color: white;
   position: absolute;
   top: 0.2em; right: 0.2em; left: 0.2em; bottom: 0.2em;
-  border: 0.2em solid {{ site.secondary_color }} ;
   background-color: {{ site.secondary_color }};
-  width: 0%;
+  transition: transform 250ms ease-in-out;
+  transform-origin: left; 
+  transform: scale(1, 1);
   display: flex;
   justify-content: center;
   align-items: center;
