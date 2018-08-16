@@ -23,20 +23,10 @@
   <script>
 {% assign num_layout_resources = 4 %}
 {% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
-    function execute_page_functions() {
-      let page_functions = []; 
-
-	  {% for page_function in page.functions %}
-        page_functions.push({{ page_function.name }});
-	  {% endfor %}
-
-        preload_page({{ num_resources_to_load }}, page_functions);
-	  }
-
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", execute_page_functions);
+      document.addEventListener("DOMContentLoaded", preload_page({{ num_resources_to_load }}));
     } else {
-	  execute_page_functions();
+      preload_page({{ num_resources_to_load }});
     }
   </script>
 </body>

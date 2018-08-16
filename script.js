@@ -1,11 +1,11 @@
 ---
 ---
 
-function preload_page(num_resources_to_load, on_page_load_functions) {
+function preload_page(num_resources_to_load) {
   let preloader = Object.create(null);
   preloader.dom_elem = document.querySelector(".Preloader__");
   preloader.progress_bar_dom_elem = document.querySelector(".Preloader__ProgressBar");
-  preloader.progress_bar_class_str = ".Preloader__ProgressBar::after";
+  preloader.progress_bar_bar_dom_elem = document.querySelector(".Preloader__ProgressBar__Bar");
   preloader.anim_frames_dom_elems = document.querySelectorAll(".Preloader__AnimationFrame__");
   preloader.num_anim_frames = preloader.anim_frames_dom_elems.length;
   preloader.anim_duration = 500;
@@ -35,32 +35,21 @@ function preload_page(num_resources_to_load, on_page_load_functions) {
     const RESOURCES_LOADED_STATUS_STR = `${(NUM_RESOURCES_LOADED / num_resources_to_load) * 100}%`;
     
 	// check against previous value to avoid re-inserting
-    document.querySelector("style").sheet.insertRule(`${preloader.progress_bar_class_str} {width: ${RESOURCES_LOADED_STATUS_STR};}`)
-    preloader.progress_bar_dom_elem.dataset.status = RESOURCES_LOADED_STATUS_STR;
+    preloader.progress_bar_bar_dom_elem.style.width = `${RESOURCES_LOADED_STATUS_STR}`;
+    preloader.progress_bar_bar_dom_elem.innerHTML = RESOURCES_LOADED_STATUS_STR;
     
 	if (NUM_RESOURCES_LOADED != num_resources_to_load) {
       window.requestAnimationFrame(preloader.animate);
 	} else {
-      // preloader.dom_elem.style.animationPlayState = "running"; some reason not working
-      preloader.dom_elem.style.display = "none";
-	  on_page_load_functions.forEach((page_function) => {
-	    page_function();  
-	  });
+      preloader.dom_elem.style.opacity = 0;
 	}
   }
 
   if (window.performance.getEntriesByType("resource").length !== num_resources_to_load) {
     window.requestAnimationFrame(preloader.animate);
   } else {
-    preloader.dom_elem.style.display = "none";
-	on_page_load_functions.forEach((page_function) => {
-      page_function();  
-	});
+    preloader.dom_elem.style.opacity = 0;
   }
-}
-
-function handle_menu() {
-  let want_to_show_menu = false;	
 }
 
 function auto_type() {}
