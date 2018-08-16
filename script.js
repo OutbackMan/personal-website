@@ -35,7 +35,6 @@ function preload_page(num_resources_to_load) {
 	const SCALE_AMOUNT = NUM_RESOURCES_LOADED / num_resources_to_load; 
     const RESOURCES_LOADED_STATUS_STR = `${parseInt(SCALE_AMOUNT * 100, 10)}%`;
     
-	// check against previous value to avoid re-inserting
     preloader.progress_bar_bar_dom_elem.style.transform = `scale(${SCALE_AMOUNT}, 1)`;
     preloader.progress_bar_bar_dom_elem.innerHTML = RESOURCES_LOADED_STATUS_STR;
     
@@ -43,6 +42,7 @@ function preload_page(num_resources_to_load) {
       window.requestAnimationFrame(preloader.animate);
 	} else {
       preloader.dom_elem.style.opacity = 0;
+	  document.querySelector(".Page__").style = "z-index: 10; transform: scale(1, 1);"; // this has same time as preloader opacity transition
 	}
   }
 
@@ -50,6 +50,7 @@ function preload_page(num_resources_to_load) {
     window.requestAnimationFrame(preloader.animate);
   } else {
     preloader.dom_elem.style.opacity = 0;
+	document.querySelector(".Page__").style = "z-index: 10; transform: scale(1, 1);"; // this has same time as preloader opacity transition
   }
 }
 

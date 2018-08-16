@@ -19,8 +19,6 @@
 }
 
 .Preloader__ {
-  margin: 0; /* rather annoyingly doesn't inherit */
-  padding: 0;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -28,8 +26,7 @@
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
   transition: opacity 1250ms ease-in-out 1000ms;
   background-color: {{ site.primary_color }};
 }
@@ -75,6 +72,12 @@
   z-index: -1;
   position: absolute;
   top: 0; left: 0;
+  transform: scale(0, 0); /* prevent overflow, but still retrieve resources */
+  transform-origin: center;
+  transition: transform 1250ms ease-in-out 1500ms;
+  width 100%;
+  height: 100%;
+  display: block;
 }
 
 .Header__ {
@@ -130,8 +133,10 @@
 
 
 .Home__ {
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://images.pexels.com/photos/1264988/pexels-photo-1264988.jpeg?cs=srgb&dl=adorable-animal-animal-photography-1264988.jpg&fm=jpg?xyz1234");
+  background-size: cover;
 }
 
 /* overlay with rgba() ::after */
