@@ -15,7 +15,7 @@ async function preload_page(num_resources_to_load) {
   preloader.visible_anim_frame_num = 0;
   preloader.page_dom_elem = document.querySelector(".Page__");
 
-  preloader.animate = function(cur_anim_frame_start_time) {
+  preloader.animate = async function(cur_anim_frame_start_time) {
     preloader.time_between_anim_frames = cur_anim_frame_start_time - 
 	                                       preloader.prev_anim_frame_end_time;
 
@@ -42,9 +42,11 @@ async function preload_page(num_resources_to_load) {
 	if (NUM_RESOURCES_LOADED != num_resources_to_load) {
       window.requestAnimationFrame(preloader.animate);
 	} else {
-	  preloader.dom_elem.style = "z-index: -1; opacity: 0;"; // this has same time as preloader opacity transition
+	  await sleep(1500);
+
+	  preloader.dom_elem.style.display = "none"; // this has same time as preloader opacity transition
       preloader.page_dom_elem.style.transform = "scale(1, 1)";
-      preloader.page_dom_elem.style.zIndex = 1;
+      preloader.page_dom_elem.style.zIndex = 2;
 	}
   }
 
@@ -54,15 +56,14 @@ async function preload_page(num_resources_to_load) {
   if (window.performance.getEntriesByType("resource").length !== num_resources_to_load) {
 	// display preloader
     preloader.dom_elem.style.zIndex = 1;
-    preloader.dom_elem.style.opacity = 1;
+    preloader.dom_elem.style.display = "flex";
 
     // can't animate 
     // hide page
     preloader.page_dom_elem.style.transform = "scale(0, 0)"; /* prevent overflow, but still retrieve resources */
-    preloader.page_dom_elem.style.transformOrigin = "center";
     preloader.page_dom_elem.style.zIndex = -1; /* ensure below preloader */
     window.requestAnimationFrame(preloader.animate);
-  } 
+  }
 }
 
 function sleep(time_ms) {

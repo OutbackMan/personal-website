@@ -24,14 +24,13 @@
 
 .Preloader__ {
   font-size: 1rem;
-  display: flex;           
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100vw;
   z-index: -1;
-  opacity: 0;       /* INFO(Ryan): Not displaying as assuming page is cached.
+  display: none;       /* INFO(Ryan): Not displaying as assuming page is cached.
                      *             This simplifies the JS to manually show the 
 					 *             preloader if the page is not cached.
                      */
@@ -86,8 +85,12 @@
   display: block;
   position: absolute;
   top: 0; left: 0;
-  width 100%;
+  width: 100%;
   height: 100%;
+}
+
+main {
+  margin-top: 5em;
 }
 
 .Header__ {
@@ -95,7 +98,7 @@
   position: fixed;	
   width: 100%;
   height: 5em;
-  background-color: steelblue;
+  background-color: rgba(70, 130, 180, 0.8);
 }
 
 #Header__NavBtn {
@@ -103,16 +106,50 @@
 }
 
 .Header__NavBtn__ {
-  font-size: 1rem;
+  font-size: 3rem;
   display: block;
   cursor: pointer;
   width: 1.25em;
-  height: calc(3 * 0.25em + 0.1em);
-  border: 0.1em solid white;
-  border-radius: 0.1em;
+  height: 1.15em;
+  position: absolute;
+  margin-left: 0.5em;
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+}
+
+.Header__NavBtn__Lines__ {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.Header__NavBtn__Lines__Line {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 0.25em;
+  background-color: white;
+  transition: transform 250ms ease-in-out, opacity 250ms ease-in-out; 
+}
+
+/* bar: 0.25em, margin: 0.2em, --> 1.15em */ 
+.Header__NavBtn__Lines__Line:nth-child(1) {
+  transform-origin: left;
+  top: 0; 
+}
+.Header__NavBtn__Lines__Line:nth-child(2) {
+  top: 0.45em; 
+}
+.Header__NavBtn__Lines__Line:nth-child(3) {
+  top: 0.9em; 
+  transform-origin: left;
 }
 
 .Header__Nav__ {
+  position: absolute;
+  top: 100%;
   transform: scale(0, 0); 	
 }
 
@@ -120,6 +157,18 @@
   transform: scale(1, 1);
 }
 
+#Header__NavBtn:checked ~ .Header__NavBtn__ .Header__NavBtn__Lines__ .Header__NavBtn__Lines__Line:nth-child(1) {
+  transform: rotate(45deg);
+}
+#Header__NavBtn:checked ~ .Header__NavBtn__ .Header__NavBtn__Lines__ .Header__NavBtn__Lines__Line:nth-child(2) {
+  opacity: 0;
+}
+#Header__NavBtn:checked ~ .Header__NavBtn__ .Header__NavBtn__Lines__ .Header__NavBtn__Lines__Line:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+
+/* MAIN: to make it push down other content, place inside of header */
 h2 {
   color: white;	
 }
