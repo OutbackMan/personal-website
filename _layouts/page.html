@@ -21,7 +21,7 @@
   </section>
   <script src="script.js"></script>
   <script>
-{% assign num_layout_resources = 4 %}
+{% assign num_layout_resources = 3 %}
 {% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", preload_page({{ num_resources_to_load }}));
