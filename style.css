@@ -8,7 +8,7 @@
 }
 
 :root {
-  font-size: calc(0.5rem * 1vw);
+  font-size: calc(1vw + 1vh + 0.5vmin);
   font-weight: normal;
   font-family: "Lato", "Lucida Grande", 
     "Lucida Sans Unicode", Tahoma, Sans-Serif;
@@ -87,6 +87,7 @@
   top: 0; left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .HomeHeader__ {
@@ -103,6 +104,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2em;
 }
 
 .HomeHeader__Logo__Link {
@@ -123,6 +125,7 @@
   padding: 0.3em;
   border: 0.1em solid #efefef;
   border-radius: 5%;
+  cursor: pointer;
 }
 
 .HomeHeader__Nav__ {
@@ -153,21 +156,60 @@
   display: table-cell;
 }
 
+.Home__ {
+  width: 100%;
+  height: 100%;
+  padding: 0.5em;
+}
+
 .Home__Content__ {
   display: flex;
   width: 100%;
   height: 100%;
   flex-flow: column wrap;
   align-items: flex-start;
-  justify-content: space-between; 
+  justify-content: center;
+}
+
+.Home__Content__ > * {
+  margin-bottom: 0.1em;	
+}
+
+.Home__Content__Name {
+  font-weight: 500;	
+  font-size: 4em;
+}
+
+.Home__Content__ShortDescription {
+  font-weight: 300;	
+  font-size: 2em;
+  background-color: goldenrod;
 }
 
 .Home__Content__IconsLinksList__LinkItem {
-  width: 1em;
-  height: 1em;
+  width: 2em;
+  height: 2em;
 }
 
+.Home__BgVideo {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
 
+.Home__BgVideoOverlay {
+  position: absolute;
+  z-index: -1;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(20, 20, 20, 0.5);
+}
 
 @media all and (min-width: 570px) {
   .HomeHeader__NavBtn__ {
