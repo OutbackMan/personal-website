@@ -1,0 +1,54 @@
+<header class="Header__">
+
+  <div class="Header__Logo__">
+    <a class="Header__Logo__Link" href="index.html"> REM </a>
+  </div>
+
+  <input id="Header__NavBtn" type="checkbox" style="display: none;"/>
+  <div class="Header__NavBtn__">
+    <label for="Header__NavBtn" class="Header__NavBtn__Label">
+      MENU
+    </label>
+  </div>
+
+  <nav class="Header__Nav__ 
+    {% if include.cur_page == 'home' %}
+    Header__Nav--Transparent
+	{% else %}
+	Header__Nav--Color
+	{% endif %}">
+    <ul class="Header__Nav__LinksList__">
+      <li class="Header__Nav__LinksList__LinkItem__"> 
+        <a class="Header__Nav__LinksList__LinkItem__Link
+		  {% if include.cur_page == 'home' %} 
+		  Header__Nav__LinksList__LinkItem__Link 
+		  {% endif %}" href="index.html">
+                Home 
+        </a>
+      </li>
+      <li class="Header__Nav__LinksList__LinkItem__"> 
+        <a class="Header__Nav__LinksList__LinkItem__Link
+		  {% if include.cur_page == 'about' %} 
+		  Header__Nav__LinksList__LinkItem__Link 
+		  {% endif %}" href="about.html">
+                About 
+        </a>
+      </li>
+      <li class="Header__Nav__LinksList__LinkItem__"> 
+        <a class="Header__Nav__LinksList__LinkItem__Link
+		  {% if include.cur_page == 'projects' %} 
+		  Header__Nav__LinksList__LinkItem__Link 
+		  {% endif %}" href="projects.html">
+                Projects 
+        </a>
+      </li>
+        <a class="Header__Nav__LinksList__LinkItem__Link
+		  {% if include.cur_page == 'contact' %} 
+		  Header__Nav__LinksList__LinkItem__Link 
+		  {% endif %}" href="contact.html">
+                Contact 
+        </a>
+    </ul>
+  </nav>
+
+</header>

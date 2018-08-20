@@ -90,7 +90,7 @@
   overflow: hidden;
 }
 
-.HomeHeader__ {
+.Header__ {
   font-size: 1rem;
   width: 100%;
   display: flex;
@@ -99,7 +99,7 @@
   align-items: center;
 }
 
-.HomeHeader__Logo__ {
+.Header__Logo__ {
   flex-basis: 50%;	
   display: flex;
   justify-content: center;
@@ -107,19 +107,19 @@
   font-size: 2em;
 }
 
-.HomeHeader__Logo__Link {
+.Header__Logo__Link {
   text-decoration: none;	
   color: white;
 }
 
-.HomeHeader__NavBtn__ {
+.Header__NavBtn__ {
   flex-basis: 50%;	
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.HomeHeader__NavBtn__Label {
+.Header__NavBtn__Label {
   color: white;
   text-transform: uppercase;
   padding: 0.3em;
@@ -128,32 +128,42 @@
   cursor: pointer;
 }
 
-.HomeHeader__Nav__ {
+.Header__Nav__ {
   flex-basis: 100%;	
-  display: none;
+  transform: scale(0, 0);
+  transition: transform 500ms ease-in-out;
 }
 
-.HomeHeader__Nav__LinksList__ {
+.Header__Nav--Transparent {
+  background-color: transparent;	
+}
+
+.Header__Nav--Color {
+  background-color: {{ site.primary_color }};	
+}
+
+.Header__Nav__LinksList__ {
   list-style: none;	
   text-align: center;
 }
 
-.HomeHeader__Nav__LinksList__LinkItem__Link {
+.Header__Nav__LinksList__LinkItem__Link {
   text-decoration: none;	
   color: white;
 }
 
-.HomeHeader__Nav__LinksList__LinkItem__Link:hover {
+.Header__Nav__LinksList__LinkItem__Link:hover {
   color: goldenrod;
 }
 
-.HomeHeader__Nav__LinksList__LinkItem__:first-child 
-  .HomeHeader__Nav__LinksList__LinkItem__Link {
+.Header__Nav__LinksList__LinkItem__:first-child 
+  .Header__Nav__LinksList__LinkItem__Link {
   color: goldenrod;
 }
 
-#HomeHeader__NavBtn:checked ~ .HomeHeader__Nav__ {
+#Header__NavBtn:checked ~ .Header__Nav__ {
   display: table-cell;
+  transform: scale(1, 1);
 }
 
 .Home__ {
@@ -211,19 +221,32 @@
   background-color: rgba(20, 20, 20, 0.5);
 }
 
+.Home__Content__IconsLinksList__LinkItem__Link:hover 
+ .Home__Content__IconsLinksList__LinkItem__Link__Vector  {
+  fill: white;	
+}
+
+.Home__Content__Name__Word{
+  display: inline-block; /* necessary for ::first-letter */
+}
+.Home__Content__Name__Word::first-letter {
+  color: goldenrod;	
+}
+
 @media all and (min-width: 570px) {
-  .HomeHeader__NavBtn__ {
+  .Header__NavBtn__ {
     display: none;	  
   }
-  .HomeHeader__Nav__ {
+  .Header__Nav__ {
     flex-basis: 50%; 
+	transform: scale(1, 1);
 	display: table-cell;
   }
-  .HomeHeader__Nav__LinksList__ {
+  .Header__Nav__LinksList__ {
     display: flex;
 	justify-content: flex-end;
   }
-  .HomeHeader__Nav__LinksList__LinkItem__ {
+  .Header__Nav__LinksList__LinkItem__ {
     margin-right: 1em;
   }
 }
