@@ -14,7 +14,7 @@
 <body class="Display__">
   {% include preloader.html %}
   <section class="Page__"> 
-    {% include page-header.html cur_page= page.identifier %}
+    {% include home-header.html %}
     <main class="{{ page.identifier | capitalize }}__">
         {{ content }}
     </main>

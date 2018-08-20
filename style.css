@@ -8,7 +8,7 @@
 }
 
 :root {
-  font-size: calc(0.5rem + 1vw);
+  font-size: calc(0.5rem * 1vw);
   font-weight: normal;
   font-family: "Lato", "Lucida Grande", 
     "Lucida Sans Unicode", Tahoma, Sans-Serif;
@@ -89,71 +89,169 @@
   height: 100%;
 }
 
+.HomeHeader__ {
+  font-size: 1rem;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomeHeader__Logo__ {
+  flex-basis: 50%;	
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HomeHeader__Logo__Link {
+  text-decoration: none;	
+  color: white;
+}
+
+.HomeHeader__NavBtn__ {
+  flex-basis: 50%;	
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ensure square */
+.HomeHeader__NavBtn__Btn__Lines__ {
+  --NavBtn-Btn-LineHeight: 0.5; 
+  --NavBtn-Btn-VerticalLineMargin: 0.75;
+  --NavBtn-Btn-LineWidth: 3; 
+  width: calc(var(--NavBtn-Btn-LineWidth) * 1em);
+  height: calc(var(--NavBtn-Btn-LineHeight) * 3em + 
+            calc(var(--NavBtn-Btn-VerticalLineMargin) * 1em));
+  display: inline-block;
+  position: relative;
+}
+
+.HomeHeader__NavBtn__Btn__Lines__Line {
+  position: absolute;
+  display: inline-block;
+  width: calc(var(--NavBtn-Btn-LineWidth) * 1em);
+  height: calc(var(--NavBtn-Btn-LineHeight) * 1em);
+  background-color: white;
+  transition: transform 500ms ease-out, opacity 500ms ease-out;
+  transform-origin: left;
+}
+
+.HomeHeader__NavBtn__Btn__Lines__Line:nth-child(1) {
+}
+
+.HomeHeader__NavBtn__Btn__Lines__Line:nth-child(2) {
+  top: calc(var(--NavBtn-Btn-LineHeight) * 1em + 
+         calc(var(--NavBtn-Btn-VerticalLineMargin) * 1em));
+}
+
+.HomeHeader__NavBtn__Btn__Lines__Line:nth-child(3) {
+  top: calc(var(--NavBtn-Btn-LineHeight) * 2em + 
+         calc(var(--NavBtn-Btn-VerticalLineMargin) * 2em));
+}
+
+#HomeHeader__NavBtn:checked ~ .HomeHeader__NavBtn__ 
+  .HomeHeader__NavBtn__Btn__ .HomeHeader__NavBtn__Btn__Lines__
+    .HomeHeader__NavBtn__Btn__Lines__Line:nth-child(1) {
+ transform: rotate(45deg) scaleX(1.10);
+}
+#HomeHeader__NavBtn:checked ~ .HomeHeader__NavBtn__ 
+  .HomeHeader__NavBtn__Btn__ .HomeHeader__NavBtn__Btn__Lines__
+    .HomeHeader__NavBtn__Btn__Lines__Line:nth-child(2) {
+ opacity: 0; 
+}
+#HomeHeader__NavBtn:checked ~ .HomeHeader__NavBtn__ 
+  .HomeHeader__NavBtn__Btn__ .HomeHeader__NavBtn__Btn__Lines__
+    .HomeHeader__NavBtn__Btn__Lines__Line:nth-child(3) {
+ transform: rotate(-45deg) scaleX(1.10); 
+}
+
+
 .Header__ {
   font-size: 1rem;
-  position: fixed;	
   width: 100%;
+  position: fixed;
+  display: flex;
+  flex-flow: row wrap;
   height: 10vh;
-  background-color: rgba(70, 130, 180, 0.8);
+  justify-content: center;
+  align-items: center;
 }
 
-main {
-  margin-top: 10vh;	
+.Header__ > * {
+  flex-basis: 50%;
 }
 
-#Header__NavBtn {
-  display: none;
+.Header__Logo__ {
+  padding-left: 2em;	
+}
+
+.Header__Logo__Text {
+  color: white;	
 }
 
 .Header__NavBtn__ {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 1em;
+}
+
+.Header__NavBtn__Btn__ {
+  margin-right: 1.5em;
   font-size: 3rem;
-  display: block;
+  display: inline-block;
   cursor: pointer;
   width: 1.25em;
   height: 1.15em;
-  position: absolute;
-  top: 50%; bottom: 50%; left: 50%; right: 50%;
-  transform: translate(-50%, -50%);
 }
 
-.Header__NavBtn__Lines__ {
+.Header__NavBtn__Btn__Lines__ {
   position: relative;
-  display: block;
+  display: inline-block;
   width: 100%;
   height: 100%;
 }
 
-.Header__NavBtn__Lines__Line {
+.Header__NavBtn__Btn__Lines__Line {
   position: absolute;
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: 1.25em;
   height: 0.25em;
   background-color: white;
   transition: transform 250ms ease-in-out, opacity 250ms ease-in-out; 
 }
 
 /* bar: 0.25em, margin: 0.2em, --> 1.15em */ 
-.Header__NavBtn__Lines__Line:nth-child(1) {
+.Header__NavBtn__Btn__Lines__Line:nth-child(1) {
   transform-origin: left;
   top: 0; 
 }
-.Header__NavBtn__Lines__Line:nth-child(2) {
+.Header__NavBtn__Btn__Lines__Line:nth-child(2) {
   top: 0.45em; 
 }
-.Header__NavBtn__Lines__Line:nth-child(3) {
+.Header__NavBtn__Btn__Lines__Line:nth-child(3) {
   top: 0.9em; 
   transform-origin: left;
 }
 
 .Header__Nav__ {
-  position: absolute;
-  top: 100%;
-  width: 100%;
+  flex-basis: 100%;
   transition: transform 500ms ease-in-out;
-  transform-origin: top center;
-  text-align: center;
-  transform: scale(0, 0); 	/* as we cannot push content down, leave margin from header */
-  background-color: rgba(70, 130, 180, 0.8);
+  transform-origin: left;
+  text-align: left;
+  transform: scale(0, 0); /* add opacity */
+}
+
+.Header__Nav__LinksList {
+  list-style-type: none;	
+}
+
+.Header__Nav__LinksList__LinkItem__Link {
+  text-decoration: none;
+  color: white;
 }
 
 #Header__NavBtn:checked ~ .Header__Nav__ {
@@ -170,8 +268,6 @@ main {
   transform: rotate(-45deg);
 }
 
-@media only screen and (min-width: 400px) {
-  .Header__ {
-    display: grid;	  
-  }   	
+.Home__ {
+  margin-top: 10vh;
 }

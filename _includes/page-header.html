@@ -1,0 +1,66 @@
+<header class="PageHeader__">
+
+  <!-- If flex item, best to put in wrapper -->
+  <div class="PageHeader__Logo__">
+    <h3 class="PageHeader__Logo__Text"> R.E.M </h3>
+  </div>
+
+  <input id="PageHeader__NavBtn" type="checkbox" style="display: none;"/>
+
+  <div class="PageHeader__NavBtn__">
+    <label for="PageHeader__NavBtn" class="PageHeader__NavBtn__Btn__">
+      <div class="PageHeader__NavBtn__Btn__Lines__">
+        <div class="PageHeader__NavBtn__Btn__Lines__Line"></div>
+        <div class="PageHeader__NavBtn__Btn__Lines__Line"></div>
+        <div class="PageHeader__NavBtn__Btn__Lines__Line"></div>
+      </div>
+    </label>
+  </div>
+
+  <nav class="PageHeader__Nav__">
+    <ul class="PageHeader__Nav__LinksList__">
+      <li class="PageHeader__Nav__LinksList__LinkItem__"> 
+        <a class="PageHeader__Nav__LinksList__LinkItem__Link" href="index.html">
+                Home 
+        </a>
+      </li>
+      <li class="PageHeader__Nav__LinksList__LinkItem__"> 
+	    {% if include.cur_page == 'about' %}
+          <a class="PageHeader__Nav__LinksList__LinkItem__Link
+		    PageHeader__Nav__LinksList__LinkItem__Link--CurPage" href="about.html">
+            About
+          </a>
+        {% else %}
+          <a class="PageHeader__Nav__LinksList__LinkItem__Link" href="about.html">
+            About 
+          </a>
+		{% endif %}
+      </li>
+      <li class="PageHeader__Nav__LinksList__LinkItem__"> 
+	    {% if include.cur_page == 'projects' %}
+          <a class="PageHeader__Nav__LinksList__LinkItem__Link
+		    PageHeader__Nav__LinksList__LinkItem__Link--CurPage" href="projects.html">
+            Projects
+          </a>
+        {% else %}
+          <a class="PageHeader__Nav__LinksList__LinkItem__Link" href="projects.html">
+            Projects 
+          </a>
+		{% endif %}
+      </li>
+      <li class="PageHeader__Nav__LinksList__LinkItem__"> 
+	    {% if include.cur_page == 'contact' %}
+          <a class="PageHeader__Nav__LinksList__LinkItem__Link
+		    PageHeader__Nav__LinksList__LinkItem__Link--CurPage" href="contact.html">
+            Contact
+          </a>
+        {% else %}
+          <a class="PageHeader__Nav__LinksList__LinkItem__Link" href="contact.html">
+            Contact 
+          </a>
+		{% endif %}
+      </li>
+    </ul>
+  </nav>
+
+</header>
