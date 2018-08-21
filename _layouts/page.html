@@ -7,15 +7,13 @@
   <meta name="description" content="{{ page.description }}" />
   <link rel="shortcut icon" href="{{ site.url }}/images/icon.ico" />
   <link rel="stylesheet" href="{{ site.url }}/style.css" />
-  <style></style>
   <title>{{ page.title }}</title>
 </head>
 
-<body class="Display__">
-  {% include preloader.html %}
-  <section class="Page__"> 
-    {% include header.html cur_page=page.identifier %}
-    <main class="{{ page.identifier | capitalize }}__">
+<body>
+  <section class="Display__"> 
+    {% include html/header.html cur_page=page.identifier %}
+    <main class="Page__ {{ page.identifier | capitalize }}__">
         {{ content }}
     </main>
   </section>
@@ -26,7 +24,7 @@
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", preload_page({{ num_resources_to_load }}));
     } else {
-      preload_page({{ num_resources_to_load }});
+      preload_page({{ site.title }}, {{ page.identifier }}, {{ num_resources_to_load }});
     }
   </script>
 </body>

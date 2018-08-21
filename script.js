@@ -11,7 +11,4 @@ function _str_to_dom_elem(str) {
   return template_dom_elem.content.firstChild;
 }
 
-{% include preload-page.js %}
-
-// swap over to css translate to allow for gpu acceleration
-
+{% include js/preload-page.js %}
