@@ -4,12 +4,16 @@
 async function preload_page(num_resources_to_load) {
   let preloader = Object.create(null);
   preloader.dom_elem = document.querySelector(".Preloader__");
-  preloader.progress_bar_dom_elem = document.querySelector(".Preloader__ProgressBar__");
-  preloader.progress_bar_bar_dom_elem = document.querySelector(".Preloader__ProgressBar__Bar");
-  preloader.anim_frames_dom_elems = document.querySelectorAll(".Preloader__AnimationFrame__");
+  preloader.progress_bar_dom_elem = 
+    document.querySelector(".Preloader__ProgressBar__");
+  preloader.progress_bar_bar_dom_elem = 
+    document.querySelector(".Preloader__ProgressBar__Bar");
+  preloader.anim_frames_dom_elems = 
+    document.querySelectorAll(".Preloader__AnimationFrame__");
   preloader.num_anim_frames = preloader.anim_frames_dom_elems.length;
   preloader.anim_duration = 500;
-  preloader.desired_time_per_anim_frame = preloader.anim_duration / preloader.num_anim_frames;
+  preloader.desired_time_per_anim_frame = preloader.anim_duration / 
+                                            preloader.num_anim_frames;
   preloader.prev_anim_frame_end_time = window.performance.now();
   preloader.time_between_anim_frames = 0;
   preloader.visible_anim_frame_num = 0;
@@ -19,13 +23,17 @@ async function preload_page(num_resources_to_load) {
     preloader.time_between_anim_frames = cur_anim_frame_start_time - 
 	                                       preloader.prev_anim_frame_end_time;
 
-    if (preloader.time_between_anim_frames > preloader.desired_time_per_anim_frame) {
-       preloader.anim_frames_dom_elems[preloader.visible_anim_frame_num].style.display = "none"; 
+    const TIME_FOR_FRAME_CHANGE = preloader.time_between_anim_frames > 
+	                                preloader.desired_time_per_anim_frame
+    if (TIME_FOR_FRAME_CHANGE) {
+       preloader.anim_frames_dom_elems[preloader.visible_anim_frame_num]
+	     .style.display = "none"; 
 
        const NEXT_VISIBLE_ANIM_FRAME_NUM = (preloader.visible_anim_frame_num + 1) % 
 	                                         preloader.num_anim_frames; 
 
-       preloader.anim_frames_dom_elems[NEXT_VISIBLE_ANIM_FRAME_NUM].style.display = "table-cell"; 
+       preloader.anim_frames_dom_elems[NEXT_VISIBLE_ANIM_FRAME_NUM]
+	     .style.display = "table-cell"; 
 
        preloader.prev_anim_frame_end_time = cur_anim_frame_start_time;
 
@@ -42,11 +50,13 @@ async function preload_page(num_resources_to_load) {
 	if (NUM_RESOURCES_LOADED != num_resources_to_load) {
       window.requestAnimationFrame(preloader.animate);
 	} else {
-	  await sleep(1500);
-
+      preloader.dom_elem.style.transition = "opacity 500ms ease-in-out";
+      preloader.dom_elem.style.opacity = 0;
+	  await sleep(500);
 	  preloader.dom_elem.style.display = "none"; // this has same time as preloader opacity transition
+      preloader.dom_elem.style.zIndex = -1;
       preloader.page_dom_elem.style.transform = "scale(1, 1)";
-      preloader.page_dom_elem.style.zIndex = 2;
+      preloader.page_dom_elem.style.zIndex = 1;
 	}
   }
 
@@ -56,6 +66,7 @@ async function preload_page(num_resources_to_load) {
   if (window.performance.getEntriesByType("resource").length !== num_resources_to_load) {
 	// display preloader
     preloader.dom_elem.style.zIndex = 1;
+    preloader.dom_elem.style.opacity = 1;
     preloader.dom_elem.style.display = "flex";
 
     // can't animate 
@@ -69,8 +80,6 @@ async function preload_page(num_resources_to_load) {
 function sleep(time_ms) {
   return new Promise((resolve, reject) => setTimeout(resolve, time_ms));	
 }
-
-function auto_type() {}
 
 /*
 function auto_type() {

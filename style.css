@@ -24,17 +24,20 @@
 
 .Preloader__ {
   font-size: 1rem;
+  position: absolute;
+  top: 0; left: 0;
+  overflow: hidden;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100vw;
   z-index: -1;
+  opacity: 0;
   display: none;       /* INFO(Ryan): Not displaying as assuming page is cached.
                      *             This simplifies the JS to manually show the 
 					 *             preloader if the page is not cached.
                      */
-  overflow: hidden;
   background-color: {{ site.primary_color }};
 }
 
@@ -82,12 +85,10 @@
 .Page__ {
   font-size: 1rem;
   z-index: 1;
-  display: block;
-  position: absolute;
-  top: 0; left: 0;
   width: 100%;
+  max-width: 100vw;
   height: 100%;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
 .Header__ {
@@ -126,6 +127,11 @@
   border: 0.1em solid #efefef;
   border-radius: 5%;
   cursor: pointer;
+  position: relative;
+}
+
+.Header__NavBtn__Label::before {
+  	
 }
 
 .Header__Nav__ {
@@ -150,6 +156,21 @@
 .Header__Nav__LinksList__LinkItem__Link {
   text-decoration: none;	
   color: white;
+  position: relative;
+}
+
+.Header__Nav__LinksList__LinkItem__Link::before {
+  position: absolute;
+  bottom: 130%;
+  content: "";
+  width: 100%;
+  border-bottom: 0.1em solid goldenrod;
+  transform: scale(0, 0);
+  transition: transform 500ms ease-in-out;
+}
+
+.Header__Nav__LinksList__LinkItem__Link:hover::before {
+  transform: scale(1, 1);
 }
 
 .Header__Nav__LinksList__LinkItem__Link:hover {
@@ -168,7 +189,7 @@
 
 .Home__ {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   padding: 0.5em;
 }
 
@@ -201,7 +222,17 @@
   height: 2em;
 }
 
-.Home__BgVideo {
+.Home__BgVideo__ {
+  position: absolute;
+  z-index: -1;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgba(20, 20, 20, 0.5);
+}
+
+.Home__BgVideo__Video {
   position: absolute;
   top: 50%; left: 50%;
   width: auto;
@@ -210,15 +241,6 @@
   min-height: 100%;
   transform: translate(-50%, -50%);
   z-index: -1;
-}
-
-.Home__BgVideoOverlay {
-  position: absolute;
-  z-index: -1;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(20, 20, 20, 0.5);
 }
 
 .Home__Content__IconsLinksList__LinkItem__Link:hover 
