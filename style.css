@@ -287,6 +287,13 @@
   }
 }
 
+{% include page.css %} --> header
+{% include home.css %}
+
+main {
+  margin-top: calc(var(--HeaderHeight) * 1em);
+}
+
 .Home__ {
   display: block;
   width: 100%;
@@ -298,7 +305,6 @@
   display: flex;
   width: 100%;
   height: calc(100vh - calc(var(--HeaderHeight) * 1em));
-  margin-top: calc(var(--HeaderHeight) * 1em);
   flex-flow: column wrap;
   align-items: flex-start;
   justify-content: center;
