@@ -15,6 +15,8 @@
   color: #272727; /* change to primary color */
   text-shadow: 0 0.2em 0 rgba(0, 0, 0, 0.07);
   line-height: 1.5;
+
+  --HeaderHeight: 5;
 }
 
 .Display__ {
@@ -94,10 +96,13 @@
 .Header__ {
   font-size: 1rem;
   width: 100%;
+  height: calc(var(--HeaderHeight) * 1em);
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  background-color: rgba(30, 30, 30, 0.8);
 }
 
 .Header__Logo__ {
@@ -106,6 +111,7 @@
   justify-content: center;
   align-items: center;
   font-size: 2em;
+  font-weight: 550;
 }
 
 .Header__Logo__Link {
@@ -124,28 +130,48 @@
   color: white;
   text-transform: uppercase;
   padding: 0.3em;
-  border: 0.1em solid #efefef;
+  border: 0.2em solid #efefef;
   border-radius: 5%;
   cursor: pointer;
   position: relative;
+  font-weight: 550;
 }
 
 .Header__NavBtn__Label::before {
-  	
+  position: absolute; 
+  content: "";
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(0, 1);
+  transition: transform 500ms ease-in-out;
+  transform-origin: center;
+  background-color: white;
+  z-index: -1;
+}
+
+#Header__NavBtn:checked ~ .Header__NavBtn__ .Header__NavBtn__Label::before {
+  content: "CLOSE";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.Header__NavBtn__Label:hover::before {
+  transform: scale(1, 1);
+}
+.Header__NavBtn__Label:hover {
+  color: rgb(20, 20, 20);
 }
 
 .Header__Nav__ {
-  flex-basis: 100%;	
+  position: absolute;
+  top: 100%;
   transform: scale(0, 0);
   transition: transform 500ms ease-in-out;
-}
-
-.Header__Nav--Transparent {
-  background-color: transparent;	
-}
-
-.Header__Nav--Color {
-  background-color: {{ site.primary_color }};	
+  background-color: rgba(30, 30, 30, 0.8);
+  width: 100%;
 }
 
 .Header__Nav__LinksList__ {
@@ -182,21 +208,43 @@
   color: goldenrod;
 }
 
+
 #Header__NavBtn:checked ~ .Header__Nav__ {
   display: table-cell;
   transform: scale(1, 1);
 }
 
+@media all and (min-width: 730px) {
+  .Header__NavBtn__ {
+    display: none;	  
+  }
+  .Header__Nav__ {
+    flex-basis: 50%; 
+	transform: scale(1, 1);
+	display: table-cell;
+	position: static;
+  }
+  .Header__Nav__LinksList__ {
+    display: flex;
+	justify-content: flex-end;
+	margin-right: 1em;
+  }
+  .Header__Nav__LinksList__LinkItem__ {
+    margin-right: 1em;
+  }
+}
+
 .Home__ {
+  display: block;
   width: 100%;
-  min-height: 100vh;
-  padding: 0.5em;
+  height: 100%;
 }
 
 .Home__Content__ {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - calc(var(--HeaderHeight) * 1em));
+  margin-top: calc(var(--HeaderHeight) * 1em);
   flex-flow: column wrap;
   align-items: flex-start;
   justify-content: center;
@@ -233,14 +281,8 @@
 }
 
 .Home__BgVideo__Video {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: auto;
-  height: auto;
   min-width: 100%;
   min-height: 100%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
 }
 
 .Home__Content__IconsLinksList__LinkItem__Link:hover 
@@ -248,27 +290,9 @@
   fill: white;	
 }
 
-.Home__Content__Name__Word{
+.Home__Content__Name__Word {
   display: inline-block; /* necessary for ::first-letter */
 }
 .Home__Content__Name__Word::first-letter {
   color: goldenrod;	
-}
-
-@media all and (min-width: 570px) {
-  .Header__NavBtn__ {
-    display: none;	  
-  }
-  .Header__Nav__ {
-    flex-basis: 50%; 
-	transform: scale(1, 1);
-	display: table-cell;
-  }
-  .Header__Nav__LinksList__ {
-    display: flex;
-	justify-content: flex-end;
-  }
-  .Header__Nav__LinksList__LinkItem__ {
-    margin-right: 1em;
-  }
 }
