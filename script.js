@@ -1,6 +1,8 @@
 ---
 ---
 
+// swap over to css translate to allow for gpu acceleration
+
 async function preload_page(num_resources_to_load) {
   let preloader = Object.create(null);
   preloader.dom_elem = document.querySelector(".Preloader__");
@@ -80,36 +82,3 @@ async function preload_page(num_resources_to_load) {
 function sleep(time_ms) {
   return new Promise((resolve, reject) => setTimeout(resolve, time_ms));	
 }
-
-/*
-function auto_type() {
-  const PHRASES_TO_TYPE = JSON.parse(auto_type_dom_elem.dataset.phrases);
-  
-  let displayed_phrase = "";
-  let counter = 0;
-  PHRASES_TO_TYPE.forEach((phrase) => {
-    let want_to_delete_displayed_phrase = false;
-    while (!want_to_delete_displayed_phrase && displayed_phrase.length !== 0) {
-      if (want_to_delete_displayed_phrase) {
-        displayed_phrase.substring(0, displayed_phrase.length - 1);
-      } else {
-        displayed_phrase += phrase[counter++];
-        AUTO_TYPING_ELEM.innerHTML = displayed_phrase;
-      }
-      
-      if (!want_to_delete_displayed_phrase && displayed_phrase.length === phrase.length) {
-        want_to_delete_displayed_phrase = true;
-      }
-    }
-    counter = 0;
-  });
-  window.requestAnimationFrame((start_time) => {
-	  
-  });
-}
-
-function auto_type_ch() {
-  window.requestAnimationFrame((start_time) => {
-	  
-  });
-}*/
