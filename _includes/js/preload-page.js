@@ -7,11 +7,8 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
   const UPDATE = async (html_dom_elem, css_dom_elem, dom_elem, 
                          anim_frame_img_dom_elem, progress_bar_dom_elem) => {
 	if (RESOURCES_HAVE_LOADED()) {
-	  const SCALE_AMOUNT = window.performance.getEntriesByType("resource").length /
-	                         num_resources_to_load;
-      
-      progress_bar_dom_elem.style.transform = `scaleX(${SCALE_AMOUNT})`;
-      progress_bar_dom_elem.innerHTML = `${parseInt(SCALE_AMOUNT * 100, 10)}%`;
+      progress_bar_dom_elem.style.transform = "scaleX(1)";
+      progress_bar_dom_elem.innerHTML = "100%";
 
 	  anim_frame_img_dom_elem.style.animationPlayState = "paused";
 	  dom_elem.style.opacity = 0;
@@ -43,7 +40,9 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
 	}
   }
 
-  if (!RESOURCES_HAVE_LOADED()) {
+  await _sleep(50); // ensure load cached page
+
+  if (window.performance.getEntriesByType("resource").length < num_resources_to_load - 1) {
     const PRELOADER_HTML = `
       <article class="Preloader__">
 	    <h1 class="Preloader__WebsiteName"> 
@@ -77,9 +76,13 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
 		  z-index: 10;
 		} 
 
+        .Preloader__WebsiteName {
+	     margin-bottom: 0.5em;		
+		}
+
 		.Preloader__AnimFrame__ {
-		  width: 30em;
-		  height: 30em;
+		  width: 20em;
+		  height: 20em;
 		}
 
 		.Preloader__AnimFrame__Img {
@@ -103,13 +106,14 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
 
 		.Preloader__ProgressBar__ {
 		  position: relative;
-          width: 10em;
+          width: 20em;
 		  height: 2em;
-		  border: 0.1em solid white;
+		  border: 0.2em solid white;
 		}
 
 		.Preloader__ProgressBar__Bar {
 		  color: {{ site.primary_color }};
+		  font-weight: 550;
 		  position: absolute;
           top: 0.2em; left: 0.2em; right: 0.2em; bottom: 0.2em;
 		  width: auto;
@@ -119,6 +123,10 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
 		  transition: transform 250ms ease-in-out;
 		  background-color: white;
 		  display: flex; justify-content: center; align-items: center;
+		}
+		
+		.Preloader__PageName {
+	      margin-top: 0.5em;		
 		}
 
       </style>
@@ -148,5 +156,10 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
 		 PROGRESS_BAR_DOM_ELEM
 	     );
 	});
+  } else {
+    document.querySelector(".Display__").style = `
+	  transform: scale(1, 1);
+	  background-color: white; 
+	`; // background-color forces repaint;
   }
 }
