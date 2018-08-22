@@ -21,5 +21,5 @@ liquid:
   strict_variables: true
 
 primary_color: "#4390bc"
-secondary_color: "b2d3e6"
+secondary_color: "#b2d3e6"
 lightened_primary_color: "#525252"

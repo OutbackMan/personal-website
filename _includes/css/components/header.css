@@ -125,6 +125,7 @@
   color: {{ site.secondary_color }};
 }
 
+/* when checked --> hover states have white bg, second-color text */
 
 #Header__NavBtn:checked ~ .Header__Nav__ {
   display: table-cell;

@@ -1,11 +1,37 @@
 ---
 layout: page
 identifier: contact
-title: Ryan Edward McClue
-description: Personal website for Australian hobbyist autodidactical software programmer Ryan Edward McClue
-num_resources: 2
+title: REM Contact
+description: Contact form for Australian hobbyist autodidactical software programmer Ryan Edward McClue
+num_resources: 0
 ---
 
-<form>
+<form method="POST" action="https://formspree.io/ryan.edward.mcclue@gmail.com">
+
+ <input type="text" name="name" placeholder="Your name"/>
+ <input type="email" name="_replyto" placeholder="Your email address"/>
+ <input type="hidden" name="_subject" value="REM Contact Emails" />
+ <textarea name="message" placeholder="Your message"></textarea>
+
+
+ <button type="submit"> Send </button>
+
+ <input type="hidden" name="_next" value="{{ site.url }}/contact/success" />
 
 </form>
+
+
+
+
+
+
+<footer>
+© 2018 Ryan Edward McClue.
+</footer>
+<style>
+  footer {
+	margin-top: 2em;
+    border-top: 2px solid {{ site.secondary_color }};
+	background-color: {{ site.primary_color }};
+  }
+</style>
