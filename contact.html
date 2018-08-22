@@ -6,18 +6,19 @@ description: Contact form for Australian hobbyist autodidactical software progra
 num_resources: 0
 ---
 
-<form method="POST" action="https://formspree.io/ryan.edward.mcclue@gmail.com">
+<form method="POST" action="https://formspree.io/re.mcclue@gmail.com">
+  <fieldset>
+    <legend> Contact Form <legend>
+    <input type="text" name="name" placeholder="Your name" tabindex="1"/>
+    <input type="email" name="_replyto" placeholder="Your email address" tabindex="2"//>
+    <input type="hidden" name="_subject" value="REM Contact Emails" />
+    <textarea name="message" placeholder="Your message" tabindex="3"></textarea>
 
- <input type="text" name="name" placeholder="Your name"/>
- <input type="email" name="_replyto" placeholder="Your email address"/>
- <input type="hidden" name="_subject" value="REM Contact Emails" />
- <textarea name="message" placeholder="Your message"></textarea>
 
+    <button type="submit"> Send </button>
 
- <button type="submit"> Send </button>
-
- <input type="hidden" name="_next" value="{{ site.url }}/contact/success" />
-
+    <input type="hidden" name="_next" value="{{ site.url }}/contact/success" />
+  </fieldset>
 </form>
 
 

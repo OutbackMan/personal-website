@@ -6,14 +6,34 @@ description: List of software projects created by Australian hobbyist autodidact
 num_resources: 1
 ---
 
-<input id="Projects__Gallery__CheckAll" type="checkbox" />
+<input id="Projects__Gallery__CheckAll" type="checkbox" style="display: none;" />
 <label for="Projects__Gallery__CheckAll"> All </label>
 <input id="Projects__Gallery__CheckSystems" type="checkbox" />
 <label for="Projects__Gallery__CheckSystems"> Systems </label>
 
 <section class="Projects__Gallery__">
-  <figure class="Projects__Gallery__Item__ Projects__Gallery__Item--Systems">
-    <img class="Projects__Gallery__Item__Img" src="{{ site.url }}/images/project.jpeg" />
-    <figcaption class="Projects__Gallery__Item__Modal">Health System</figcaption>
-  </figure>
+  
+  <input id="Projects__Gallery__Item__HealthSystem" type="checkbox" style="display: none;" />
+  <label for="Projects__Gallery__Item__HealthSystem" class="Projects__Gallery__Item__HealthSystem Projects__Gallery__Item--Systems">
+    <figure class="Projects__Gallery__Item__">
+      <img class="Projects__Gallery__Item__Img" src="{{ site.url }}/images/project.jpeg" />
+      <figcaption class="Projects__Gallery__Item__Modal">Health System</figcaption>
+    </figure>
+  </label>
+  <div class="Projects__Gallery__Modal__HealthSystem">
+     <label for="Projects__Gallery__Item__HealthSystem">CLOSE MODAL</label>
+     <img class="Projects__Gallery__Modal__Img" src="{{{ site.url }}/images/project.jpeg" />
+     <h2> Health System </h2>
+	 <p> Short description </p>
+     {% for comment in site.data.comments[page.slug] | sort %}
+       {% include comment.html comment=comment %}
+	 {% endfor %}
+	 <form method="POST" action="https://api.staticman.net/v2/connect/OutbackMan/personal-website">
+         
+	 </form>
+  </div>
 </section>
+
+<style>
+
+</style>

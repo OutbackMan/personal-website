@@ -1,0 +1,5 @@
+allowedFields: ["name", "message"]
+branch: "gh-pages"
+commitMessage: "Automatic Staticman comment handling"
+moderation: false
+name: "REM"
