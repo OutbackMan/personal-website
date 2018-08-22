@@ -1,3 +1,7 @@
+.Display__ {
+  transform: scale(0, 0);  	
+}
+
 {% include css/components/header.css %}
 
 .Page__ {

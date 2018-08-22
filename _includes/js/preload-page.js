@@ -1,4 +1,4 @@
-function preload_page(website_name, page_name, num_resources_to_load) {
+async function preload_page(website_name, page_name, num_resources_to_load) {
   const RESOURCES_HAVE_LOADED = () => { 
     return window.performance.getEntriesByType("resource").length >= 
 	         num_resources_to_load;
@@ -7,16 +7,23 @@ function preload_page(website_name, page_name, num_resources_to_load) {
   const UPDATE = async (html_dom_elem, css_dom_elem, dom_elem, 
                          anim_frame_img_dom_elem, progress_bar_dom_elem) => {
 	if (RESOURCES_HAVE_LOADED()) {
+	  const SCALE_AMOUNT = window.performance.getEntriesByType("resource").length /
+	                         num_resources_to_load;
+      
+      progress_bar_dom_elem.style.transform = `scaleX(${SCALE_AMOUNT})`;
+      progress_bar_dom_elem.innerHTML = `${parseInt(SCALE_AMOUNT * 100, 10)}%`;
+
 	  anim_frame_img_dom_elem.style.animationPlayState = "paused";
 	  dom_elem.style.opacity = 0;
-	  await _sleep(500); // wait until opacity animation finished
+	  await _sleep(2000); // wait until opacity animation finished
 		
 	  document.body.removeChild(css_dom_elem);
 	  document.body.removeChild(html_dom_elem);
-      document.documentElement.style = `
+      document.body.style = `
         width: 100%;
 	    height: 100%;
 	  `;
+	  document.querySelector(".Display__").style.transform = "scale(1, 1)";
 	} else {
 	  const SCALE_AMOUNT = window.performance.getEntriesByType("resource").length /
 	                         num_resources_to_load;
@@ -24,15 +31,15 @@ function preload_page(website_name, page_name, num_resources_to_load) {
       progress_bar_dom_elem.style.transform = `scaleX(${SCALE_AMOUNT})`;
       progress_bar_dom_elem.innerHTML = `${parseInt(SCALE_AMOUNT * 100, 10)}%`;
 
-      setTimeout(
-	       UPDATE, 
-	  	   0, 
+      window.requestAnimationFrame((start_time) => {
+	    UPDATE( 
 	  	   html_dom_elem, 
 	  	   css_dom_elem, 
 	  	   dom_elem,
 	  	   anim_frame_img_dom_elem, 
 	  	   progress_bar_dom_elem
 	       );
+	  });
 	}
   }
 
@@ -40,7 +47,7 @@ function preload_page(website_name, page_name, num_resources_to_load) {
     const PRELOADER_HTML = `
       <article class="Preloader__">
 	    <h1 class="Preloader__WebsiteName"> 
-		  ${website_name} 
+		  ${website_name}
 		</h1>
         <section class="Preloader__AnimFrame__"/>
 		  <div class="Preloader__AnimFrame__Img"></div>
@@ -57,38 +64,40 @@ function preload_page(website_name, page_name, num_resources_to_load) {
     const PRELOADER_CSS = `
       <style>
 	    .Preloader__ {
-		  width: 100%;
-		  height: 100%;
+		  position: absolute;
+		  left: 0; right: 0; top: 0; bottom: 0;
 		  display: flex;
 		  flex-flow: column wrap;
 		  align-items: center;
 		  justify-content: center;
 		  opacity: 1;
-		  transition: opacity 500ms ease-in-out;
-		  background-color: {{ site.primary_color }}
+		  transition: opacity 2s ease-in-out;
+		  background-color: {{ site.primary_color }};
 	      color: white;		
+		  z-index: 10;
 		} 
 
 		.Preloader__AnimFrame__ {
-		  width: 100%;
-		  height: auto;
+		  width: 30em;
+		  height: 30em;
 		}
 
 		.Preloader__AnimFrame__Img {
-		  width: 100%:
-		  height: auto;
-	      background: url("{{ site.url }}/images/preloader.svg") 
-		                no-repeat 0% 0%;
-		  background-size: 100%;
-		  animation: PreloaderImageAnim 2s steps(8) infinite;
+		  width: 100%;
+		  height: 100%;
+		  display: block;
+	      background-image: url("{{ site.url }}/images/preloader.svg");
+		  background-size: 800%;
+		  background-position: 800% 0;
+		  animation: PreloaderImageAnim 750ms steps(8) infinite;
 		}
 
         @keyframes PreloaderImageAnim {
 		  from {
-		    background-position: 0% 0%;  
+		    background-position-x: 800%;
 		  }
 		  to {
-		    background-position: 0% 100%;  
+		    background-position-x: 0;
 		  }
 		}
 
@@ -96,18 +105,19 @@ function preload_page(website_name, page_name, num_resources_to_load) {
 		  position: relative;
           width: 10em;
 		  height: 2em;
-		  border: 0.5em solid {{ site.primary_color }};
+		  border: 0.1em solid white;
 		}
 
 		.Preloader__ProgressBar__Bar {
+		  color: {{ site.primary_color }};
 		  position: absolute;
           top: 0.2em; left: 0.2em; right: 0.2em; bottom: 0.2em;
-		  width: 100%;
-		  height: 100%;
+		  width: auto;
+		  height: auto;
 		  transform: scaleX(0.05);
 		  transform-origin: left;
 		  transition: transform 250ms ease-in-out;
-		  background-color: {{ site.primary_color }};
+		  background-color: white;
 		  display: flex; justify-content: center; align-items: center;
 		}
 
@@ -124,17 +134,19 @@ function preload_page(website_name, page_name, num_resources_to_load) {
     const PROGRESS_BAR_DOM_ELEM = document.querySelector(".Preloader__ProgressBar__Bar");
 	const DOM_ELEM = document.querySelector(".Preloader__");
 
-    document.documentElement.style = `
+    document.body.style = `
       width: 100vw;
 	  height: 100vh;
 	`;
 
-	UPDATE( 
+    window.requestAnimationFrame((start_time) => {
+	  UPDATE( 
 		 HTML_DOM_ELEM, 
 		 CSS_DOM_ELEM, 
 		 DOM_ELEM,
 		 ANIM_FRAME_IMG_DOM_ELEM, 
 		 PROGRESS_BAR_DOM_ELEM
 	     );
+	});
   }
 }
