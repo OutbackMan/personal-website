@@ -20,7 +20,7 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
         width: 100%;
 	    height: 100%;
 	  `;
-	  document.querySelector(".Display__").style.transform = "scale(1, 1)";
+	  document.body.style.transform = "scale(1, 1)";
 	} else {
 	  const SCALE_AMOUNT = window.performance.getEntriesByType("resource").length /
 	                         num_resources_to_load;
@@ -128,7 +128,6 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
 		.Preloader__PageName {
 	      margin-top: 0.5em;		
 		}
-
       </style>
 	`;
 
@@ -157,7 +156,7 @@ async function preload_page(website_name, page_name, num_resources_to_load) {
 	     );
 	});
   } else {
-    document.querySelector(".Display__").style = `
+    document.body.style = `
 	  transform: scale(1, 1);
 	  background-color: white; 
 	`; // background-color forces repaint;

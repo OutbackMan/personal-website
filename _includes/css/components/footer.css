@@ -1,0 +1,10 @@
+.Footer__ {
+  height: 3em;	
+  width: 100%;
+  background-color: {{ site.primary_color }};
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

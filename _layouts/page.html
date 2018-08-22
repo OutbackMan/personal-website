@@ -12,10 +12,11 @@
 
 <body>
   <section class="Display__"> 
-    {% include html/header.html cur_page=page.identifier %}
+    {% include html/header.html cur_page=page.identifier want_transparency='false' %}
     <main class="Page__ {{ page.identifier | capitalize }}__">
         {{ content }}
     </main>
+	{% include html/footer.html %}
   </section>
   <script src="script.js"></script>
   <script>

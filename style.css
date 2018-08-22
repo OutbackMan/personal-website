@@ -16,5 +16,10 @@
   line-height: 1.5;
 }
 
+body {
+ transform: scale(0, 0);
+}
+
+{% include css/layouts/home.css %}
+
 {% include css/layouts/page.css %}
-{% include css/pages/home.css %}

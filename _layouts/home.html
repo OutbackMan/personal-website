@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal website for Australian hobbyist autodidactical software programmer Ryan Edward McClue" />
+  <link rel="shortcut icon" href="{{ site.url }}/images/icon.ico" />
+  <link rel="stylesheet" href="{{ site.url }}/style.css" />
+  <title>REM</title>
+</head>
+
+<body>
+  {% include html/header.html cur_page='home' want_transparency='true' %}
+  <main class="Home__">
+    <div class="Home__BgVideoOverlay"></div>
+    <video class="Home__BgVideo" src="{{ site.url }}/{{ page.bg_video_url }}" muted autoplay loop playsinline></video>
+      {{ content }}
+  </main>
+  <script src="script.js"></script>
+  <script>
+{% assign num_layout_resources = 5 %}
+{% assign num_resources_to_load = page.num_resources | plus: num_layout_resources %}
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", preload_page(
+                                                 "REM", 
+ 											     "Home", 
+												  {{ num_resources_to_load }}
+												));
+  } else {
+    preload_page("REM", "Home", {{ num_resources_to_load }});
+  }
+  </script>
+</body>
+
+</html>
