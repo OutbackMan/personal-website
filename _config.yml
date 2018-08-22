@@ -20,6 +20,6 @@ liquid:
   strict_filters: true
   strict_variables: true
 
-primary_color: "#444444"
+primary_color: "#4390bc"
+secondary_color: "b2d3e6"
 lightened_primary_color: "#525252"
-secondary_color: rgba(20, 20, 20, 0.4)
